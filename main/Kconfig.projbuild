@@ -1,0 +1,36 @@
+menu "Voice light control"
+
+config LIGHT_PWM_GPIO
+    int "Light PWM GPIO"
+    range 0 48
+    default 2
+    help
+        GPIO connected to the MOSFET or LED strip data/PWM input.
+
+config LIGHT_PWM_FREQUENCY
+    int "Light PWM frequency (Hz)"
+    range 100 40000
+    default 5000
+
+config LIGHT_DEFAULT_BRIGHTNESS
+    int "Default brightness percent"
+    range 1 100
+    default 60
+
+config LIGHT_MQTT_ENABLED
+    bool "Publish light state to MQTT"
+    default n
+
+config LIGHT_MQTT_BROKER_URI
+    string "MQTT broker URI"
+    depends on LIGHT_MQTT_ENABLED
+    default "mqtt://192.0.2.1:1883"
+    help
+        Replace with the private Singapore server address before enabling.
+
+config LIGHT_MQTT_TOPIC
+    string "MQTT state topic"
+    depends on LIGHT_MQTT_ENABLED
+    default "smart-light/esp32-s3/state"
+
+endmenu
